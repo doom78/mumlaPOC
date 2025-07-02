@@ -30,7 +30,7 @@ jobs:
     - name: Set up Android NDK 25.1.8937393
       uses: nttld/setup-ndk@v1
       with:
-        ndk: '25.1.8937393' # Specifica la versione esatta dell'NDK
+        ndk-version: '25.1.8937393' # Specifica la versione esatta dell'NDK
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew # Rendi lo script Gradle Wrapper eseguibile

@@ -32,7 +32,7 @@ jobs:
       uses: nttld/setup-ndk@v1
       with:
         #ndk-version: '25.1.8937393' # Specifica la versione esatta dell'NDK
-        ndk-version: 'r25c' # Questo dovrebbe risolvere il 404
+        ndk-version: 'r25b' # Questo dovrebbe risolvere il 404
     # Aggiungi queste opzioni per assicurarti che l'NDK sia correttamente collegato
         add-to-path: true # Aggiunge l'NDK al PATH, utile per strumenti da riga di comando
         # link-to-sdk: true # Questo potrebbe causare il conflitto se sta installando una versione NDK ridondante.

@@ -42,7 +42,7 @@ jobs:
         echo "sdk.dir=$ANDROID_HOME" > local.properties
         # L'azione nttld/setup-ndk dovrebbe configurare ANDROID_NDK_HOME,
         # ma possiamo anche provare a scriverlo esplicitamente se necessario.
-        # echo "ndk.dir=$ANDROID_NDK_HOME" >> local.properties # Potrebbe non essere necessario con link-to-sdk: true
+        echo "ndk.dir=$ANDROID_NDK_HOME" >> local.properties # Potrebbe non essere necessario con link-to-sdk: true
       # Questo step va eseguito prima di qualsiasi comando gradlew che necessiti dell'SDK/NDK
     # ---------------------------------------
     - name: Grant execute permission for gradlew

@@ -28,13 +28,14 @@ jobs:
         distribution: 'temurin'
         java-version: '17' # Usa JDK 17, che è compatibile con le ultime versioni di Android Studio e Gradle
     - name: Set up Android NDK 25.1.8937393
+      id: setup_ndk # Assegna un ID a questo step per poterne referenziare gli output
       uses: nttld/setup-ndk@v1
       with:
         #ndk-version: '25.1.8937393' # Specifica la versione esatta dell'NDK
         ndk-version: 'r25c' # Questo dovrebbe risolvere il 404
     # Aggiungi queste opzioni per assicurarti che l'NDK sia correttamente collegato
         add-to-path: true # Aggiunge l'NDK al PATH, utile per strumenti da riga di comando
-        link-to-sdk: true # Importante: Collega l'NDK all'SDK Android, permettendo a Gradle di trovarlo
+        # link-to-sdk: true # Questo potrebbe causare il conflitto se sta installando una versione NDK ridondante.
                           # Questo spesso risolve il "NDK not installed" in CI
     # ---Step per creare local.properties---
     - name: Create local.properties
@@ -42,8 +43,9 @@ jobs:
         echo "sdk.dir=$ANDROID_HOME" > local.properties
         # L'azione nttld/setup-ndk dovrebbe configurare ANDROID_NDK_HOME,
         # ma possiamo anche provare a scriverlo esplicitamente se necessario.
-        echo "ndk.dir=$ANDROID_NDK_HOME" >> local.properties # Potrebbe non essere necessario con link-to-sdk: true
-      # Questo step va eseguito prima di qualsiasi comando gradlew che necessiti dell'SDK/NDK
+        # Usa l'output dell'azione setup-ndk per maggiore precisione
+        echo "ndk.dir=${{ steps.setup_ndk.outputs.ndk-path }}" >> local.properties
+      # Questo step deve essere eseguito PRIMA di qualsiasi comando gradlew
     # ---------------------------------------
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew # Rendi lo script Gradle Wrapper eseguibile
